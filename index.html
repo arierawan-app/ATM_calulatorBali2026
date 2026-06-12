@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ATM Calculator Bali 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="calculator" aria-labelledby="page-title">
+        <div class="masthead">
+          <p class="eyebrow">KPKNL Denpasar</p>
+          <h1 id="page-title">ATM Calculator Bali 2026</h1>
+          <p class="subtitle">Kalkulator tarif pokok sewa mesin ATM berdasarkan wilayah dan jenis BMN.</p>
+        </div>
+
+        <form class="controls" id="calculator-form">
+          <label class="field">
+            <span>Kabupaten/Kota</span>
+            <select id="region" name="region" required>
+              <option value="">Pilih Kabupaten/Kota</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Jenis BMN</span>
+            <select id="asset-type" name="assetType" required>
+              <option value="">Pilih Jenis BMN</option>
+              <option value="Tanah">Tanah</option>
+              <option value="Tanah dan Bangunan">Tanah dan Bangunan</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Jumlah Mesin</span>
+            <input id="machine-count" name="machineCount" type="number" inputmode="numeric" min="1" step="1" placeholder="0" required>
+          </label>
+        </form>
+
+        <p class="status" id="status" role="status">Lengkapi pilihan untuk menampilkan tarif.</p>
+
+        <section class="result-panel" id="result-panel" aria-label="Hasil perhitungan tarif" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Kabupaten/Kota</th>
+                <th scope="col">Tarif/mesin</th>
+                <th scope="col">Jumlah Tarif Mesin</th>
+              </tr>
+            </thead>
+            <tbody id="result-body"></tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

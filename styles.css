@@ -1,0 +1,223 @@
+:root {
+  --ink: #10201a;
+  --muted: #5c6f65;
+  --panel: rgba(247, 252, 248, 0.94);
+  --panel-strong: #ffffff;
+  --line: #c5d7cd;
+  --green-900: #073d2b;
+  --green-700: #0d6b45;
+  --green-500: #24a15c;
+  --green-200: #bde7c9;
+  --shadow: 0 24px 80px rgba(6, 48, 31, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    linear-gradient(135deg, rgba(7, 61, 43, 0.98), rgba(13, 107, 69, 0.9) 45%, rgba(189, 231, 201, 0.9)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 38px);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 18px;
+}
+
+.calculator {
+  width: min(980px, 100%);
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.masthead {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  width: fit-content;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid var(--green-200);
+  background: #eef9f1;
+  color: var(--green-900);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) minmax(190px, 1fr) minmax(150px, 0.72fr);
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(237, 248, 241, 0.88)),
+    repeating-linear-gradient(0deg, transparent 0 15px, rgba(13, 107, 69, 0.035) 15px 16px);
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field span {
+  color: var(--green-900);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+select,
+input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid #9eb9aa;
+  border-radius: 0;
+  background: var(--panel-strong);
+  color: var(--ink);
+  padding: 0 13px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+select:focus,
+input:focus {
+  border-color: var(--green-700);
+  outline-color: rgba(36, 161, 92, 0.28);
+}
+
+.status {
+  min-height: 24px;
+  margin: 18px 0 12px;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.result-panel {
+  overflow: hidden;
+  border: 1px solid var(--green-700);
+  background: var(--panel-strong);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+th {
+  background: linear-gradient(90deg, var(--green-900), var(--green-700));
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+td {
+  font-weight: 700;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    align-items: start;
+    padding: 16px;
+  }
+
+  .calculator {
+    padding: 22px;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    padding: 8px 0;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px;
+    text-align: right;
+  }
+
+  td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .numeric {
+    text-align: right;
+  }
+}
