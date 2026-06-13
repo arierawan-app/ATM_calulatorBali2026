@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ATM Calculator Bali 2026</title>
+    <style>
+      :root {
+        --ink: #10201a;
+        --muted: rgba(255, 255, 255, 0.88);
+        --line: rgba(255, 255, 255, 0.32);
+        --green-900: #073d2b;
+        --green-700: #0d6b45;
+        --green-500: #24a15c;
+        --green-200: #bde7c9;
+        --panel: rgba(247, 252, 248, 0.96);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #ffffff;
+        background:
+          linear-gradient(135deg, rgba(7, 61, 43, 0.98), rgba(13, 107, 69, 0.9) 45%, rgba(189, 231, 201, 0.9)),
+          repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 38px);
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      .app-shell {
+        min-height: 100vh;
+        display: grid;
+        place-items: start center;
+        padding: 64px 18px 36px;
+      }
+
+      .calculator {
+        width: min(980px, 100%);
+      }
+
+      h1 {
+        margin: 0;
+        color: #ffffff;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .subtitle {
+        max-width: 620px;
+        margin: 12px 0 28px;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: minmax(190px, 1fr) minmax(190px, 1fr) minmax(150px, 0.72fr);
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        background: rgba(7, 61, 43, 0.26);
+        backdrop-filter: blur(8px);
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .field span {
+        color: #ffffff;
+        font-size: 0.85rem;
+        font-weight: 800;
+      }
+
+      select,
+      input {
+        width: 100%;
+        min-height: 48px;
+        border: 1px solid #9eb9aa;
+        border-radius: 0;
+        background: #ffffff;
+        color: var(--ink);
+        padding: 0 13px;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+
+      select:focus,
+      input:focus {
+        border-color: var(--green-500);
+        outline-color: rgba(255, 255, 255, 0.45);
+      }
+
+      .status {
+        min-height: 24px;
+        margin: 18px 0 12px;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .result-panel {
+        overflow: hidden;
+        border: 1px solid var(--green-200);
+        background: var(--panel);
+      }
+
+      .result-panel[hidden] {
+        display: none;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--ink);
+      }
+
+      th,
+      td {
+        padding: 16px;
+        border-bottom: 1px solid #c5d7cd;
+        text-align: left;
+      }
+
+      th {
+        background: linear-gradient(90deg, var(--green-900), var(--green-700));
+        color: #ffffff;
+        font-size: 0.82rem;
+        font-weight: 800;
+      }
+
+      td {
+        font-weight: 700;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .numeric {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      @media (max-width: 760px) {
+        .app-shell {
+          padding: 28px 16px;
+        }
+
+        .controls {
+          grid-template-columns: 1fr;
+          padding: 14px;
+        }
+
+        table,
+        thead,
+        tbody,
+        tr,
+        th,
+        td {
+          display: block;
+        }
+
+        thead {
+          display: none;
+        }
+
+        tr {
+          padding: 8px 0;
+        }
+
+        td {
+          display: flex;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 12px 14px;
+          text-align: right;
+        }
+
+        td::before {
+          content: attr(data-label);
+          color: #5c6f65;
+          font-weight: 700;
+          text-align: left;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="calculator" aria-labelledby="page-title">
+        <h1 id="page-title">ATM Calculator Bali 2026</h1>
+        <p class="subtitle">Kalkulator tarif pokok sewa mesin ATM berdasarkan wilayah dan jenis BMN.</p>
+
+        <form class="controls" id="calculator-form">
+          <label class="field">
+            <span>Kabupaten/Kota</span>
+            <select id="region" name="region" required>
+              <option value="">Pilih Kabupaten/Kota</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Jenis BMN</span>
+            <select id="asset-type" name="assetType" required>
+              <option value="Tanah">Tanah</option>
+              <option value="Tanah dan Bangunan">Tanah dan Bangunan</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Jumlah Mesin</span>
+            <input id="machine-count" name="machineCount" type="number" inputmode="numeric" min="1" step="1" value="1" required>
+          </label>
+        </form>
+
+        <p class="status" id="status" role="status">Pilih Kabupaten/Kota untuk menampilkan tarif.</p>
+
+        <section class="result-panel" id="result-panel" aria-label="Hasil perhitungan tarif" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Kabupaten/Kota</th>
+                <th scope="col">Tarif/mesin</th>
+                <th scope="col">Jumlah Tarif Mesin</th>
+              </tr>
+            </thead>
+            <tbody id="result-body"></tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const tariffs = <?!= tariffsJson ?>;
+      const elements = {
+        region: document.querySelector('#region'),
+        assetType: document.querySelector('#asset-type'),
+        machineCount: document.querySelector('#machine-count'),
+        resultPanel: document.querySelector('#result-panel'),
+        resultBody: document.querySelector('#result-body'),
+        status: document.querySelector('#status'),
+      };
+
+      const currencyFormatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+      });
+
+      function formatRupiah(value) {
+        return currencyFormatter.format(value).replace(/\s/g, ' ');
+      }
+
+      function getValidMachineCount() {
+        const value = Number(elements.machineCount.value);
+        return Number.isInteger(value) && value > 0 ? value : null;
+      }
+
+      function populateRegions() {
+        const fragment = document.createDocumentFragment();
+
+        tariffs.forEach((item) => {
+          const option = document.createElement('option');
+          option.value = item.kabupatenKota;
+          option.textContent = item.kabupatenKota;
+          fragment.appendChild(option);
+        });
+
+        elements.region.appendChild(fragment);
+      }
+
+      function clearResult(message) {
+        elements.resultPanel.hidden = true;
+        elements.resultBody.replaceChildren();
+        elements.status.textContent = message;
+      }
+
+      function renderResult() {
+        const selectedRegion = elements.region.value;
+        const selectedAssetType = elements.assetType.value;
+        const machineCount = getValidMachineCount();
+        const selectedData = tariffs.find((item) => item.kabupatenKota === selectedRegion);
+
+        if (!selectedData) {
+          clearResult('Pilih Kabupaten/Kota untuk menampilkan tarif.');
+          return;
+        }
+
+        if (!machineCount) {
+          clearResult('Masukkan jumlah mesin dengan angka lebih dari 0.');
+          return;
+        }
+
+        const tariffPerMachine = selectedData.tarif[selectedAssetType];
+        const totalTariff = tariffPerMachine * machineCount;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td data-label="Kabupaten/Kota">${selectedData.kabupatenKota}</td>
+          <td data-label="Tarif/mesin" class="numeric">${formatRupiah(tariffPerMachine)}</td>
+          <td data-label="Jumlah Tarif Mesin" class="numeric">${formatRupiah(totalTariff)}</td>
+        `;
+
+        elements.resultBody.replaceChildren(row);
+        elements.resultPanel.hidden = false;
+        elements.status.textContent = `Tarif dihitung untuk ${machineCount} mesin.`;
+      }
+
+      ['change', 'input'].forEach((eventName) => {
+        elements.region.addEventListener(eventName, renderResult);
+        elements.assetType.addEventListener(eventName, renderResult);
+        elements.machineCount.addEventListener(eventName, renderResult);
+      });
+
+      populateRegions();
+      renderResult();
+    </script>
+  </body>
+</html>
