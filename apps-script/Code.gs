@@ -64,12 +64,29 @@ const TARIFFS = [
   },
 ];
 
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('Tarif Sewa ATM 2026')
+    .addItem('Buka Kalkulator', 'showSidebar')
+    .addToUi();
+}
+
+function showSidebar() {
+  const html = createCalculatorHtml()
+    .setTitle('Tarif Sewa ATM 2026');
+
+  SpreadsheetApp.getUi().showSidebar(html);
+}
+
 function doGet() {
+  return createCalculatorHtml()
+    .setTitle('ATM Calculator Bali 2026')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function createCalculatorHtml() {
   const template = HtmlService.createTemplateFromFile('Index');
   template.tariffsJson = JSON.stringify(TARIFFS);
 
-  return template
-    .evaluate()
-    .setTitle('ATM Calculator Bali 2026')
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  return template.evaluate();
 }

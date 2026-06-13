@@ -1,10 +1,10 @@
 # ATM Calculator Bali 2026 - Google Apps Script
 
-This folder contains a Google Apps Script web app version of the calculator.
+This folder contains a Google Apps Script sidebar version of the calculator for Google Sheets.
 
 ## Files
 
-- `Code.gs`: Apps Script server file with tariff data and `doGet()`.
+- `Code.gs`: Apps Script server file with tariff data, custom menu setup, sidebar launch, and optional `doGet()`.
 - `Index.html`: Calculator UI and client-side calculation.
 - `appsscript.json`: Apps Script manifest.
 
@@ -19,8 +19,10 @@ https://docs.google.com/spreadsheets/d/1ALBUZfOh9Pm3JH8Imxt-F4hyUp2al3BeaffXL9kz
 4. Create a new HTML file named `Index`, then paste `apps-script/Index.html`.
 5. Open project settings, enable `Show "appsscript.json" manifest file in editor`, then replace the manifest with `apps-script/appsscript.json`.
 6. Save the project.
-7. Deploy as a web app.
-8. Set access according to your intended audience.
+7. Reload the spreadsheet.
+8. Use the new `Tarif Sewa ATM 2026` menu, then choose `Buka Kalkulator` to open the sidebar.
+
+The optional `doGet()` function remains available if you also want to deploy the same calculator as a web app.
 
 ## Optional Clasp Upload
 
